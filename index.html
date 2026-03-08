@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- daisy and tailwind -->
+     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Sign in</title>
+</head>
+<body>
+    <section class="mt-40 p-8 h-full shadow-2xl mx-auto w-[50%] md:w-[30%] lg:w-[20%]">
+        <div class="flex flex-col gap-2 justify-center items-center pb-6">
+            <img class="w-25" src="assets/github-logo.png" alt="">
+            <h2 class="font-bold text-2xl">GitHub Issues Tracker</h2>
+            <p class="text-sm">Sign in to manage your issues</p>
+        </div>
+            <br>
+        <form class="h-full gap-8">
+        
+            <label for="username" class="text-xl font-bold">Username</label>
+            <input type="text" id="username" placeholder="Enter Username (admin)" class="w-full my-4 rounded-[8px] p-2">
+            <label for="password" class="text-xl font-bold">Password</label>
+            <input type="password" id="password" placeholder="Enter Password (admin123)" class="w-full my-4 rounded-[8px] p-2">
+            <button type="button" onclick="toMainPage()" id="signIn" class="btn btn-primary w-full">Sign in</button>
+        </form>
+    </section>
+    <script src="login.js"></script>
+</body>
+</html>

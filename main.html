@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- daisy and tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font awesome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Github issues</title>
+</head>
+<body>
+   <header>
+        <nav class="my-6 p-4 mx-6 flex justify-between shadow-2xs">
+            <div class="flex justify-center items-center gap-3">
+                <img class="w-9" src="assets/github-logo.png" alt="">
+                <h3 class="font-semibold text-3xl">GitHub Issues Tracker</h3>
+            </div>
+            <div class="flex justify-center items-center gap-1">
+                <img src="assets/search.png" class="absolute left-3 w-4 h-4 opacity-50 pointer-events-none" alt="">
+                <input id="search" placeholder="Search issues..." type="text" class="relative p-2 rounded-[10px]">
+                <button class="btn btn-primary"><i class="fa-solid fa-plus"></i>New Issues</button>
+            </div>
+        </nav>
+    </header>
+        <main>
+
+            <section id="modesContainer" class="w-11/12 mx-auto shadow-[12px] flex gap-4">
+                <button id="allBtn" onclick="btnSelector(this)" class="btn btn-primary">all</button>
+                <button id="openBtn"  onclick="btnSelector(this)" class="btn btn-outline">Open</button>
+                <button id="closedBtn"  onclick="btnSelector(this)" class="btn btn-outline">closed</button>
+            </section>
+            
+            <section class="w-11/12 mx-auto my-6 flex justify-between">
+                <div class="flex justify-center items-center gap-4">
+                    <i class="fa-solid fa-atom text-4xl"></i>
+                    <div class="">
+                        <p class="text-2xl"><span id="total">50</span> Issues</p>
+                        <p>Track and manage your project issues</p>
+                    </div>
+                </div>
+                <div>
+                    <p><i class="fa-solid fa-circle-dot text-green-600"></i>open</p>
+                    <p><i class="fa-solid fa-circle-dot text-purple-600"></i>closed</p>
+                </div>
+            </section>
+
+            <section id="issuesContainer" class="w-11/12 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-6 bg-gray-100">
+                
+                
+            </section>
+        </main>
+  <script src="main.js"></script>
+</body>
+</html>
