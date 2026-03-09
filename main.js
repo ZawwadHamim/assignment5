@@ -1,13 +1,14 @@
 const BASE_URL = "https://phi-lab-server.vercel.app/api/v1/lab";
 let allIssues = []
-async function fetchIssues(){
-    const response = await fetch(`${BASE_URL}/issues`);
+issuesUrl = `${BASE_URL}/issues`;
+async function fetchIssues(url){
+    const response = await fetch(url);
     const res = await response.json();
     console.log(res.data)
     allIssues = res.data;
     displayIssues(allIssues);
 }
-fetchIssues()
+fetchIssues(issuesUrl);
 function btnSelector(clickedBtn){
     document.querySelectorAll("#modesContainer button").forEach((btn)=>{
         btn.classList.remove("btn-primary");
@@ -25,8 +26,29 @@ function btnSelector(clickedBtn){
     } else if (id === "closedBtn") {
         displayIssues(allIssues.filter(issue => issue.status === "closed")); 
 }
-console.log(allIssues.filter(issue => issue.status === "open"))
 }
+
+function getPriorityBadge(priority) {
+    if (priority === "high") return "badge-error";
+    if (priority === "medium") return "badge-warning";
+    return "badge-info";
+}
+
+function getLabelBadge(label) {
+    if (label === "bug") return "badge-error";
+    if (label === "enhancement") return "badge-success";
+    if (label === "documentation") return "badge-info";
+    return "badge-warning";
+}
+
+document.getElementById("searchBtn").addEventListener("click", async function() {
+    const text = document.getElementById("searchText").value.trim();
+    if (!text) return displayIssues(allIssues); 
+
+    const response = await fetch(`${BASE_URL}/issues/search?q=${text}`);
+    const res = await response.json();
+    displayIssues(res.data); s
+});
 
 function displayIssues(issues){
     const issuesContainer = document.getElementById("issuesContainer");
@@ -37,17 +59,22 @@ function displayIssues(issues){
     issues.forEach(issue=>{
         const borderColor = issue.status === "open" ? "border-green-500" : "border-purple-500";
         
-        const card = `<div id="marginTop" class="shadow-2xl flex flex-col gap-4 p-8 rounded-xl border-t-4 ${borderColor}">
-                    <p class="text-xl">Fix navigation menu on mobile devices</p>
-                    <p class="text-gray-600">The navigation menu doesn't collapse properly on mobile devices...</p>
-                    <div class="mb-2">
-                        <button class="btn btn-error rounded-xl">BUG</button>
-                        <button class="btn btn-warning rounded-xl">Help Wanted</button>
-                        <hr class="mt-5">
-                    </div>
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>`
+        const card = document.createElement("div");
+        card.className = `onclick="openModal(${issue.id})" bg-white shadow-md flex flex-col gap-3 p-6 rounded-xl border-t-4 ${borderColor} cursor-pointer hover:shadow-xl transition-shadow`; 
+        card.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="badge ${issue.status === 'open' ? 'badge-success' : 'badge-error'} badge-sm">${issue.status}</span>
+                    <span class="badge ${getPriorityBadge(issue.priority)} badge-sm">${issue.priority}</span>
+                </div>
+                <p class="font-semibold">${issue.title}</p>
+                <p class="text-gray-500 text-sm line-clamp-2">${issue.description}</p>
+                <div class="flex flex-wrap gap-1">
+                    ${issue.labels.map(label => `<span class="badge ${getLabelBadge(label)} badge-sm">${label}</span>`).join("")}
+                </div>
+                <hr>
+                <p class="text-xs text-gray-400">#${issue.id} by ${issue.author}</p>
+                <p class="text-xs text-gray-400">${new Date(issue.createdAt).toLocaleDateString()}</p>
+                `
         issuesContainer.appendChild(card)
     })
 }
