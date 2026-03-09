@@ -20,7 +20,7 @@
             <div class="flex justify-center items-center gap-1">
                 <img src="assets/search.png" class="absolute left-3 w-4 h-4 opacity-50 pointer-events-none" alt="">
                 <input id="searchText" placeholder="Search issues..." type="text" class="relative p-2 rounded-[10px]">
-                <button class="btn btn-primary"><i class="fa-solid fa-plus"></i>Search Issues</button>
+                <button id="searchBtn" class="btn btn-primary"><i class="fa-solid fa-plus"></i>Search Issues</button>
             </div>
         </nav>
     </header>
@@ -45,11 +45,75 @@
                     <p><i class="fa-solid fa-circle-dot text-purple-600"></i>closed</p>
                 </div>
             </section>
-
+            <div id="loadingSpinner" class="h-[60vh] flex hidden justify-center items-center">
+                <span class="loading loading-dots loading-xl"></span>
+                </div>
             <section id="issuesContainer" class="w-11/12 mx-auto grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 p-6 bg-gray-100">
                 
                 
             </section>
+
+            <ssection id="modal">
+                <dialog id="issueModal" class="modal modal-bottom sm:modal-middle">
+                    <div class="modal-box">
+
+                        <!-- Title + close button -->
+                        <form method="dialog">
+                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        </form>
+                        <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
+
+                        <!-- Status + Priority badges -->
+                        <div class="flex gap-2 mb-4">
+                            <span id="modalStatus" class="badge"></span>
+                            <span id="modalPriority" class="badge"></span>
+                        </div>
+
+                        <!-- Labels -->
+                        <div id="modalLabels" class="flex flex-wrap gap-2 mb-4"></div>
+
+                        <!-- Description -->
+                        <p id="modalDesc" class="text-sm text-gray-500 mb-4"></p>
+
+                        <div class="divider"></div>
+
+                        <!-- Details using DaisyUI list -->
+                        <ul class="list bg-base-100 rounded-box shadow-sm mb-4">
+                            <li class="list-row">
+                                <div class="list-col-grow">
+                                    <p class="text-xs text-gray-400">Author</p>
+                                    <p id="modalAuthor" class="font-semibold text-sm"></p>
+                                </div>
+                            </li>
+                            <li class="list-row">
+                                <div class="list-col-grow">
+                                    <p class="text-xs text-gray-400">Assignee</p>
+                                    <p id="modalAssignee" class="font-semibold text-sm"></p>
+                                </div>
+                            </li>
+                            <li class="list-row">
+                                <div class="list-col-grow">
+                                    <p class="text-xs text-gray-400">Created</p>
+                                    <p id="modalDate" class="font-semibold text-sm"></p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- Actions -->
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn btn-primary btn-sm">Close</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                <!-- Backdrop click to close -->
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+            </ssection>
         </main>
   <script src="main.js"></script>
 </body>
